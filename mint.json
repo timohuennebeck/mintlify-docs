@@ -47,6 +47,28 @@
             ]
         },
         {
+            "group": "Components",
+            "pages": [
+                "components-showcase/header",
+                "components-showcase/hero",
+                "components-showcase/featured-testimonial",
+                "components-showcase/how-it-works",
+                "components-showcase/before-after-comparison",
+                "components-showcase/stats",
+                "components-showcase/features",
+                "components-showcase/features-list",
+                "components-showcase/product-demo",
+                "components-showcase/testimonials-grid",
+                "components-showcase/pricing-comparison",
+                "components-showcase/faq",
+                "components-showcase/call-to-action",
+                "components-showcase/footer",
+                "components-showcase/testimonial-side-panel",
+                "components-showcase/onboarding-flow",
+                "components-showcase/form-status-message"
+            ]
+        },
+        {
             "group": "Production",
             "pages": ["production/publish-codebase"]
         },

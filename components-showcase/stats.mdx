@@ -1,0 +1,85 @@
+---
+title: "Stats"
+---
+
+![Stats Component Preview](../assets/components/stats.jpg)
+
+```typescript
+import Stats from "@/components/marketing/Stats";
+
+<Stats
+    eyebrow="Lorem, ipsum dolor."
+    title={
+        <>
+            Lorem ipsum dolor sit{" "}
+            <span className="relative mt-4 inline-block whitespace-nowrap bg-blue-600 p-2 text-white">
+                amet consectetur,
+            </span>
+            adipisicing elit.
+        </>
+    }
+    description="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+    stats={exampleStats}
+/>;
+```
+
+### Tips
+
+**Numbers**: Use specific, impressive but credible statistics
+
+```typescript
+// ❌ Bad Example - Vague stats
+stats: [
+    { value: "Many", label: "Users" },
+    { value: "Lots", label: "Savings" },
+];
+
+// ✅ Good Example - Specific stats
+stats: [
+    { value: "100,000+", label: "Active Users" },
+    { value: "$2.5M", label: "Customer Savings" },
+];
+```
+
+**Context**: Add brief explanations to make numbers meaningful
+
+```typescript
+// ❌ Bad Example - Missing context
+{
+    value: "99.9%",
+    label: "Uptime"
+}
+
+// ✅ Good Example - With context
+{
+    value: "99.9%",
+    label: "Uptime",
+    description: "Ensuring your business never stops"
+}
+```
+
+**Visual Hierarchy**: Use different sizes and colors for emphasis
+
+```typescript
+// ❌ Bad Example - Uniform styling
+className: "text-gray-600";
+
+// ✅ Good Example - Strategic emphasis
+className: "text-blue-600 font-bold text-4xl";
+```
+
+**Metric Selection**: Choose metrics that matter to your target audience
+
+```typescript
+// ❌ Bad Example - Internal metrics
+stats: [
+    { value: "50+", label: "Team Members" },
+    { value: "4", label: "Office Locations" },
+];
+
+// ✅ Good Example - Customer-focused metrics
+stats: [
+    { value: "2x", label: "Faster Development" },
+    { value: "60%", label: "Cost Reduction" },
+];
+```

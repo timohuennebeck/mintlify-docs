@@ -1,0 +1,28 @@
+---
+title: "Testimonials Grid"
+---
+
+![TestimonialsGrid Component Preview](../assets/components/testimonials-grid.jpg)
+
+```typescript
+import TestimonialsGrid from "@/components/marketing/TestimonialsGrid";
+
+<TestimonialsGrid
+    title={{
+        badge: "CUSTOM BADGE TITLE",
+        main: (
+            <>
+                Lorem ipsum dolor sit{" "}
+                <span className="relative mt-4 inline-block whitespace-nowrap bg-blue-600 p-2 text-white">
+                    amet consectetur,
+                </span>
+                adipisicing elit.
+            </>
+        ),
+        subtitle: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate, odio!",
+    }}
+    testimonials={testimonials}
+    testimonialsPerPage={8}
+    className="my-12"
+/>;
+```

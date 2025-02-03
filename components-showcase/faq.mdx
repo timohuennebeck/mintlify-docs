@@ -1,0 +1,57 @@
+---
+title: "FAQ"
+---
+
+![FAQ Component Preview](../assets/components/faq.jpg)
+
+```typescript
+import FAQ from "@/components/marketing/FAQ";
+
+<FAQ
+    eyebrow="Lorem, ipsum dolor."
+    title="Lorem ipsum dolor sit amet"
+    tagline="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+    items={faq}
+/>;
+```
+
+**Question Selection**: Address real customer concerns
+
+```typescript
+// ❌ Bad Example - Generic questions
+items: [{ question: "What is your product?" }, { question: "How does it work?" }];
+
+// ✅ Good Example - Specific concerns
+items: [
+    { question: "Can I migrate my existing data?" },
+    { question: "Do you offer HIPAA compliance?" },
+];
+```
+
+**Answer Format**: Be concise but complete
+
+```typescript
+// ❌ Bad Example - Vague answer
+answer: "Yes, we support that";
+
+// ✅ Good Example - Specific answer
+answer: "Yes, we support data migration through our API or CSV import. The process typically takes less than 30 minutes.";
+```
+
+**Question Order**: Prioritize common questions
+
+```typescript
+// ❌ Bad Example - Random order
+items: [
+    { question: "What's your refund policy?" }, // Important but buried
+    { question: "What's your office address?" },
+    { question: "How do I get started?" }, // Should be first
+];
+
+// ✅ Good Example - Prioritized order
+items: [
+    { question: "How do I get started?" },
+    { question: "What's your refund policy?" },
+    { question: "What's your office address?" },
+];
+```

@@ -1,0 +1,42 @@
+---
+title: "Features List"
+---
+
+![FeaturesList Component Preview](../assets/components/features-list.jpg)
+
+```typescript
+import FeaturesList from "@/components/marketing/FeaturesList";
+
+<FeaturesList
+    heading="Lorem ipsum dolor sit amet"
+    description="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+    features={featuresList}
+    sectionTitle="Lorem, ipsum dolor."
+/>;
+```
+
+**Description Clarity**: Make each feature's value proposition clear
+
+```typescript
+// ❌ Bad Example - Technical description
+{
+    title: "WebSocket Integration",
+    description: "Uses WebSocket protocol for real-time data"
+}
+
+// ✅ Good Example - Value-focused description
+{
+    title: "Real-Time Updates",
+    description: "See changes instantly without refreshing the page"
+}
+```
+
+**Section Organization**: Use clear section titles to guide users
+
+```typescript
+// ❌ Bad Example - Vague section title
+sectionTitle = "More Features";
+
+// ✅ Good Example - Specific section title
+sectionTitle = "Developer Tools & Integration";
+```
