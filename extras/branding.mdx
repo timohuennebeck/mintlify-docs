@@ -1,0 +1,85 @@
+---
+    title: "Branding"
+    description: "This section contains information about how to customise the metadata of the website including favicons, logo, title and description, open graph images (images for social media) and Twitter, so that it matches your brand."
+---
+
+<Steps>
+    <Step title="Favicon">
+        1. You can create a favicon by using an online tool like [favicon.io](https://favicon.io/favicon-converter/) to convert it from `.png` to `.ico`.
+
+        2. Inside the codebase, go to the `app` folder and replace the `icon.ico` file with a new favicon.
+    </Step>
+
+    <Step title="Title and Description">
+        1. Inside the codebase, go to the `seo.config.ts` file.
+
+        2. You will see a metadata object. This is where we can customise the metadata of the website.
+
+        ```ts filename="layout.tsx"
+        export const seoConfig: SEOConfig = {
+            default: {
+                title: "Lightweight SaaS Boilerplate • 2mrw",
+                template: "%s • 2mrw", // used for page-specific titles: "Sign In • 2mrw"
+                description:
+                    "Launch your SaaS faster with our Next.js and Supabase boilerplate.",
+                keywords: ["SaaS boilerplate", "Next.js template", "Supabase starter"],
+                url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://2mrw.dev",
+                locale: "en-US",
+
+                // open graph image (used by Facebook, LinkedIn, etc.)
+                ogImage: {
+                    url: "/og-image.jpg",
+                    width: 1200,
+                    height: 630,
+                    alt: "2mrw SaaS Boilerplate",
+                },
+
+                // twitter config (used by Twitter)
+                twitter: {
+                    handle: "@2mrw",
+                    site: "https://2mrw.dev",
+                    cardType: CardType.SUMMARY_LARGE_IMAGE,
+                },
+            },
+            ...
+        ```
+    </Step>
+
+    <Step title="Open Graph Images (Social Media)">
+        1. Inside the codebase, go to the `app` folder and replace the `opengraph-image.jpg` and `opengraph-image.alt.txt` file with a new open graph image and alt text.
+
+        2. Go to the `seo.config.ts` file and replace the existing `ogImage.url` with a new open graph image.
+
+        ```ts filename="seo.config.ts"
+        ogImage: {
+            url: [insert_image_url or image_path],
+            width: 1200,
+            height: 630,
+            alt: "2mrw SaaS Boilerplate",
+        },
+        ```
+
+        <Info>
+            It's recommended to use a size of `1200x630` for the Open Graph and Twitter images.
+        </Info>
+    </Step>
+
+    <Step title="Twitter Graph Image">
+        The Twitter Graph Image will use the existing `opengraph-image.jpg` file. If that's not desired then:
+
+        1. Inside the codebase, go to the `app` folder and replace the `twitter-image.jpg` and `twitter-image.alt.txt` file with a new Twitter image and alt text.
+    </Step>
+
+</Steps>
+
+### Troubleshooting
+
+<Tip>
+    You can use a tool like [Opengraph](https://www.opengraph.xyz/) to check if all open graph
+    images, metadata, etc. have been added / updated.
+</Tip>
+
+If the title, description or open graph images have been updated, but the changes are not showing up, please check the following:
+
+-   Check if the file names are correct
+-   Clear the cache inside the hosting provider where the project is hosted, e.g. AWS, Digital Ocean, etc.

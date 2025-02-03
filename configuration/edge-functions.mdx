@@ -1,0 +1,72 @@
+---
+    title: "Supabase Edge Functions"
+    description: "In this section, we’ll go through the steps on how to enable cron jobs using Edge Functions in Supabase, so that expired Free Trials and Subscriptions are automatically cancelled."
+---
+
+<Steps>
+    <Step title="Login to Supabase">
+        In order for our Edge Functions to work we need to connect them to our existing Supabase
+        account. Login to Supabase via the CLI:
+
+        ```typescript
+        npx supabase login
+        ```
+    </Step>
+    <Step title="Pushing The Edge Functions">
+        For our Edge Functions to be available in production we need push them to Supabase:
+
+        ```typescript
+        npm run functions:deploy
+        ```
+    </Step>
+    <Step title="Enabling Supabase Cron Jobs">
+        Cron Jobs are a custom Supabase extension that needs to be enabled. Here’s how to enable the cron jobs extension:
+
+        <video
+            autoPlay
+            controls
+            muted
+            loop
+            playsInline
+            className="w-full aspect-video"
+            src="https://www.dropbox.com/scl/fi/dkcnxvmdljzd3huh5jomm/enable-cron-jobs.mp4?rlkey=cbi1hhhxekt806drcqbpdk0s6&st=g1a5lhbv&raw=1"
+        ></video>
+    </Step>
+    <Step title="Scheduling The Edge Functions at 00:00">
+        For our last step, we need to schedule our cron jobs to trigger our **manage-subscriptions** and **manage-free-trials** edge functions EVERY night at 00:00:00. Here’s how:
+    </Step>
+
+</Steps>
+
+### Creating a Supabase Edge Function
+
+If needed, it’s also possible to add a new Edge Function using the following command:
+
+```typescript
+npx supabase functions new [function-name]
+```
+
+### Testing a Function on Localhost
+
+<Info>
+    Pre-Requisites: In order to test Supabase Edge Functions on localhost, please ensure to have
+    Docker Desktop installed. You can download it from [here].
+</Info>
+
+You can start a Supabase Edge Function with the following command:
+
+```typescript
+npx supabase functions serve [function-name]
+```
+
+or run the following command to run all functions:
+
+```typescript
+npm run functions:listen
+```
+
+In order to test the function, please call the following endpoint using Postman with the appropriate HTTP method such as GET, POST, etc. You should now see the console.logs right in the terminal (if present in the function).
+
+```typescript
+http://localhost:54321/functions/v1/[function-name]
+```

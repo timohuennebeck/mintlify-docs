@@ -1,6 +1,7 @@
 {
     "$schema": "https://mintlify.com/schema.json",
     "name": "Starter Kit",
+    "theme": "prism",
     "logo": {
         "dark": "/logo/dark.svg",
         "light": "/logo/light.svg"
@@ -18,55 +19,47 @@
     "topbarLinks": [
         {
             "name": "Support",
-            "url": "mailto:hi@mintlify.com"
-        }
-    ],
-    "tabs": [
-        {
-            "name": "API Reference",
-            "url": "api-reference"
+            "url": "mailto:hello@2mrw.dev"
         }
     ],
     "anchors": [
         {
-            "name": "Documentation",
+            "name": "Purchase Boilerplate",
             "icon": "book-open-cover",
-            "url": "https://mintlify.com/docs"
-        },
-        {
-            "name": "Blog",
-            "icon": "newspaper",
-            "url": "https://mintlify.com/blog"
+            "url": "https://2mrw.dev"
         }
     ],
     "navigation": [
         {
-            "group": "Get Started",
-            "pages": ["introduction", "quickstart", "development"]
+            "group": "Start Here",
+            "pages": ["introduction"]
         },
         {
-            "group": "Essentials",
+            "group": "Configuration",
             "pages": [
-                "essentials/markdown",
-                "essentials/code",
-                "essentials/images",
-                "essentials/settings",
-                "essentials/navigation",
-                "essentials/reusable-snippets"
+                "configuration/configuration-files",
+                "configuration/database",
+                "configuration/user-authentication",
+                "configuration/email",
+                "configuration/stripe",
+                "configuration/edge-functions",
+                "configuration/data-files"
             ]
         },
         {
             "group": "Production",
-            "pages": ["production/new-css"]
+            "pages": ["production/publish-codebase"]
         },
         {
-          "group": "Configuration",
-          "pages": ["configuration/configuration-files"]
+            "group": "Tools and Integrations",
+            "pages": ["tools-and-integrations/customer-support"]
+        },
+        {
+            "group": "Extras",
+            "pages": ["extras/rate-limits-api-calls", "extras/branding", "extras/themes"]
         }
     ],
     "footerSocials": {
-        "x": "https://x.com/mintlify",
-        "github": "https://github.com/mintlify",
-        "linkedin": "https://linkedin.com/company/mintlify"
+        "x": "https://x.com/mintlify"
     }
 }

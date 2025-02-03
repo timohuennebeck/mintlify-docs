@@ -1,0 +1,76 @@
+---
+title: "User authentication"
+description: "In this project, we use middleware middleware.ts to protect our routes from unauthenticated access."
+---
+
+Before continuing feel free to jump around in the middleware.ts file a bit to see how it works.
+
+### Setting Up Email and Password Login / Signup
+
+<Info>
+    FYI: If a user signs up or logs in via email and password or a magic link, he’ll be redirected
+    to the **/auth/(handlers)/confirm** route which will take care of the auth related logic.
+</Info>
+
+Email is Supabase’s default authentication method (which is relevant for email and password login / sign up and magic links). This should be enabled. If it’s not, here’s how to enable it:
+
+        <video
+            autoPlay
+            controls
+            muted
+            loop
+            playsInline
+            className="w-full aspect-video"
+            src="https://www.dropbox.com/scl/fi/vmoxah75kzsobbc957t93/enable-email.mp4?rlkey=jervt8pp232f8y4owgjh0pa1g&st=uyukx3lp&raw=1"
+        ></video>
+
+Supabase has a couple of built-in email templates that are used for sign-in, confirmation, etc. You can find these templates under the authentication tab and then click on **Email Templates**.
+
+However, we won’t be using these templates because we’ll be using Resend to send emails.
+
+### Setting up Google Sign-In
+
+<Info>
+    FYI: If a user signs up or logs in via Google, he’ll be redirected to the
+    **/auth/(handlers)/callback** route which will take care of the auth related logic.
+</Info>
+
+You can follow the guide below to integrate Google authentication in about 2-3 minutes. You can also 2x the speed of the videos if I speak too slow.
+
+<Steps>
+    <Step title="Set up Google Consent Screen">
+        <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/vSqGYPYgRCI"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+        ></iframe>
+    </Step>
+    <Step title="Set Up Google Oauth Client">
+        <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/I93yCfRhCQ4"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+        ></iframe>
+    </Step>
+</Steps>
+
+### How To Use Google Sign-In In Production
+
+In the Supabase dashboard, go to the authentication tab and click on URL Configuration.
+
+1. Let’s now set the production domain for our application under the Site URL field. In our case it would be https://2mrw.dev.
+
+2. Update the Redirect URLs field to include our Production domain as well as the localhost:3000 domain (for local development):
+
+-   https://2mrw.dev/**
+-   http://localhost:3000/\*\*
+
+These configurations ensure smooth operation of Google Sign-In across both our development and production environments.

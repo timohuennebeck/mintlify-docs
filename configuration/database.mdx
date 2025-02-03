@@ -1,0 +1,31 @@
+---
+title: "Database"
+description: "This project uses Supabase for the backend, which handles the database, authentication, etc."
+---
+
+### Supabase (.env) Setup
+
+<Note>
+    Pre-Requirements: Have a Supabase account with a project. Otherwise, feel free to create a new
+    project [here] before continuing.
+</Note>
+
+In order for our boilerplate to have all the required environment variables, we need to set them up in the `.env` file.
+
+You need to get the following variables from Supabase: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` and `DEFAULT_SUPABASE_SERVICE_ROLE_KEY`.
+
+<video
+    autoPlay
+    controls
+    muted
+    loop
+    playsInline
+    className="w-full aspect-video"
+    src="https://www.dropbox.com/scl/fi/5f14dh9lqsn8inze61i9t/supabase-env-variables.mp4?rlkey=z9q7k6mtxd84v2qfrl24qv6ed&st=mow9mpxy&raw=1"
+></video>
+
+### Supabase Table Setup
+
+Let’s now create all the required tables for this boilerplate to handle things such as user data, subscriptions, free trials, etc. - using the Supabase SQL Editor:
+
+Inside the codebase, go to `create_tables.sql` and paste its data inside the Supabase SQL Editor which can be found in the dashboard.

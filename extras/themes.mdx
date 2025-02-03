@@ -1,0 +1,23 @@
+---
+    title: "Themes"
+    description: "This boilerplate comes with a light and dark mode out of the box that can be either enabled or disabled through the `app.config.ts` file."
+---
+
+<Tip>
+FYI: when changing the default theme, make sure to remove the **theme** KEY from localStorage. This ensures the theme updates to reflect the latest default setting.
+</Tip>
+
+```typescript
+themeToggle: {
+    isEnabled: true,
+    defaultTheme: "light",
+},
+```
+
+ShadCN components are optimised for a light and dark mode out of the box. When adding text for new components instead of using harcoded text styles like `text-gray-500` make sure to use `text-foreground` for headers and `text-muted-foreground` for descriptions.
+
+Color related text can be optimised using the **light** and **dark** labels from Tailwind. E.g.:
+
+```typescript
+<span className="text-blue-500 dark:text-blue-300">I'm about to change colors.</span>
+```

@@ -1,0 +1,15 @@
+---
+title: "Customer Support"
+description: "For customer support, we’ll be using Crisp as it’s a free alternative to Intercom. It comes with a live chat out of the box and other customer support features."
+---
+
+<Steps>
+    <Step title="Create a Crisp account">
+        - You can create a new Crisp account [here].
+        - Then, create a new website and find the website id which can be found in the integrations menu, in the HTML option. It’s called **CRISP_WEBSITE_ID**.
+    </Step>
+    <Step title="Configure Crisp in Codebase">
+        You’ll just have to paste the `CRISP_WEBSITE_ID` inside the `app.config.ts` under websiteId
+        and set the isEnabled to true. The codebase will take care of the rest.
+    </Step>
+</Steps>

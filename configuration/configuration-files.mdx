@@ -5,13 +5,349 @@ description: "This project comes with a set of configuration files that are used
 
 Here’s a breakdown of each file and what it’s used for:
 
-#### app.config.ts
+### app.config.ts
 
-You can refer to the `TestimonialSidePanel.tsx`, `Onboarding.tsx`, `FeedbackWidget.tsx` (used for the reportBug and shareFeedback booleans below) and `FormStatusMessage.tsx` components to see what the files inside the app look like.
+You can refer to the `TestimonialSidePanel.tsx`, `Onboarding.tsx`, and `FormStatusMessage.tsx` components to see what the files inside the app look like.
 
-```javascript
-testimonialSidePanel: {
-    isEnabled: true, // shows or hides the testimonials side panel
-    direction: "right", // the direction of the testimonials side panel
+```typescript
+export const appConfig: GeneralConfig = {
+    testimonialSidePanel: {
+        isEnabled: true,
+        direction: "right",
+    },
+
+    onboarding: {
+        isEnabled: true,
+        checklist: {
+            isEnabled: true,
+            direction: "left",
+        },
+    },
+
+    themeToggle: {
+        isEnabled: true,
+        defaultTheme: "light",
+    },
+
+    feedback: {
+        bugReport: {
+            isEnabled: true,
+            formUrl: "https://tally.so/r/bug-report",
+        },
+        featureRequest: {
+            isEnabled: true,
+            formUrl: "https://tally.so/r/feature-request",
+        },
+        forms: {
+            accountDeletion: {
+                isEnabled: true, // controls whether to show feedback prompt after account deletion
+                formUrl: "https://tally.so/r/exit-survey",
+            },
+        },
+    },
+
+    company: {
+        name: "2mrw",
+        contactEmail: "support@example.com",
+        senderEmail: "m@example.com", // this email is used as the sender email for all outgoing emails such as freeTrialStarted, etc.
+    },
+};
+```
+
+<Note>
+**To-Do’s:**
+
+Feel free to configure the following features as desired as these are all optional. You can refer to their components to see what they look like inside the app.
+
+-   testimonialSidePanel (testimonial-side-panel.tsx)
+-   onboarding (onboarding-flow.tsx)
+-   accountDeletion (form-status-message.tsx)
+
+Each feature can be toggled in app.config.ts using their respective isEnabled flags.
+
+**TL;DR: no action required. You can just leave the default settings.**
+
+</Note>
+
+### pricing.config.ts
+
+This file is used to configure the pricing of the app and contains all the Stripe related information such as the pricing plans, free trial, etc.
+
+You’re gonna notice that we have a `pricingCardFeatures` and `pricingComparisonFeatures` object.
+
+-   `pricingCardFeatures` is used to configure what features to show on the pricing card `pricing-card.tsx`
+-   `pricingComparisonFeatures` is used to configure what features to show on the pricing comparision table `pricing-comparison.tsx`
+
+```typescript
+export const pricingCardFeatures: PricingFeatureItem[] = [
+    {
+        name: "Duis aute irure dolor",
+        [SubscriptionTier.FREE]: true,
+        [SubscriptionTier.ESSENTIALS]: true,
+        [SubscriptionTier.INDIE_HACKER]: true,
+    },
+    ...
+];
+```
+
+```typescript
+export const pricingComparisonFeatures: PricingFeatureSection[] = [
+    {
+        category: "Lorem",
+        items: [
+            {
+                name: "Lorem ipsum dolor sit amet",
+                [SubscriptionTier.FREE]: true,
+                [SubscriptionTier.ESSENTIALS]: true,
+                [SubscriptionTier.INDIE_HACKER]: true,
+            },
+            ...
+        ],
+    },
+    {
+        category: "Ipsum",
+        items: [
+            {
+                name: "Minim veniam",
+                [SubscriptionTier.FREE]: "1 GB",
+                [SubscriptionTier.ESSENTIALS]: "50 GB",
+                [SubscriptionTier.INDIE_HACKER]: "500 GB",
+            },
+            ...
+        ],
+    },
+];
+```
+
+<Note>
+**To-Do’s:**
+
+-   Configure the pricingCardFeatures and defaultPricingFeatures objects to contain the features of your app, e.g. 1 GB File Storage, 5 GB Bandwidth, etc.
+-   Configure the name, description, price, stripe_price_id and subscription_tier for each of the plans. You can find the stripe_price_id in Stripe.
+
+FYI: You’ll be shown in the Stripe setup [here] how to create the plans and get the stripe_price_id for each plan.
+
+</Note>
+
+<Warning>
+    Do NOT remove the price_free object from the defaultPricingPlans object nor change the
+    stripe_price_id of the free plan. These are used for our free plan and used throughout the
+    codebase.
+</Warning>
+
+### billing.config.ts
+
+```typescript
+isFreePlanEnabled: true, // this will be overridden when ONE_TIME is enabled
+billingPlan: BillingPlan.ONE_TIME, // choose between ONE_TIME or RECURRING
+```
+
+```typescript
+freeTrial: {
+    isEnabled: true, // shows or hides the free trial
+    duration: 14, // the duration of the free trial
 },
+```
+
+<Warning>
+    If OTP is enabled, the free plan as well as the free trial will be disabled as it’s not common
+    to have a free plan / free trial with a OTP.
+</Warning>
+
+<Note>
+**To-Do’s:**
+
+-   Set billingPlan to either BillingPlan.ONE_TIME (for OTPs) or BillingPlan.RECURRING (for recurring subscriptions).
+-   If recurring subscriptions are enabled, set other values such as the freeTrial duration and isFreePlanEnabled, etc.
+
+</Note>
+
+### auth.status.config.ts
+
+This boilerplate comes with a set of pre-built success and error messages out of the box. You can refer to the StatusPage.tsx page to see what the files inside the app look like.
+
+It’s also possible to add or remove success and error messages. It’s as simple as adding a new object inside the appropiate success or error object.
+
+The KEY of each object such as token-expired is the name of the error type. E.g. in order to show that specific error page, redirect the user to the /auth-status?mode=token-expired route.
+
+```typescript
+export const ERROR_TYPES: { [K in ErrorType]: StatusConfig } = {
+    "token-expired": {
+        badge: "LINK ERROR",
+        title: "Link",
+        highlight: "Has Expired",
+        description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae expedita obcaecati modi, nisi reiciendis mollitia!",
+        primaryButton: {
+            href: "/auth/sign-in?method=magic-link",
+            label: "Request New Link",
+        },
+    },
+    ...
+};
+```
+
+```typescript
+export const SUCCESS_TYPES: { [K in SuccessType]: StatusConfig } = {
+    "email-confirmed": {
+        badge: "EMAIL CONFIRMED",
+        title: "Email",
+        highlight: "Confirmed",
+        description: `Your email has been confirmed. You can now continue using ${TextConstants.TEXT__COMPANY_TITLE}.`,
+        primaryButton: {
+            href: "/choose-pricing-plan",
+            label: "Continue",
+        },
+    },
+...
+};
+```
+
+<Note>
+**To-Do’s:**
+
+Feel free to add or remove error and success messages as desired. These are all optional. However, do not change the KEYS of the existing messages as these are used throughout the code.
+
+**TL;DR: no action required. You can just leave the default settings.**
+
+</Note>
+
+### email.config.ts
+
+This boilerplate comes with a set of pre-built email templates out of the box - built with Resend.
+
+For emails to work, please connect this boilerplate with Resend. You can refer to the Emails section [here] on how to do this.
+
+You can also add / remove emails from the email.config.ts file.
+
+### routes.config.ts
+
+This file is used to configure the routes of the app. It’s divided into 3 main sections:
+
+-   **PUBLIC:** These are the routes that are ALWAYS accessible - even when authenticated.
+-   **AUTH:** These are the routes that are used for authentication flows such as login, signup, forgot password, etc. These can’t be accessed when authenticated.
+-   **PROTECTED:** These are the routes that are protected and require the user to be authenticated.
+
+Feel free to just add or remove routes from the appropiate section as the middleware.ts will handle the rest.
+
+<Note>
+**To-Do’s:**
+
+Feel free to add or remove routes. These are all optional. However, if a route is removed, make sure to also remove it throughout the codebase where it’s being used.
+
+**TL;DR: no action required. You can just leave the default settings.**
+
+</Note>
+
+```typescript
+export const ROUTES_CONFIG = {
+    PUBLIC: {
+        LANDING_PAGE: "/",
+        STATUS_ERROR: "/auth-status/error",
+        STATUS_SUCCESS: "/auth-status/success",
+    },
+
+    AUTH: {
+        SIGN_IN: "/auth/sign-in",
+        SIGN_UP: "/auth/sign-up",
+
+        /**
+         * the following routes are (password-management) routes
+         * these are used for password management flows such as forgot password and update password
+         */
+
+        FORGOT_PASSWORD: "/auth/forgot-password",
+        UPDATE_PASSWORD: "/auth/update-password",
+
+        /**
+         * the following routes are (handlers) routes
+         * these are used for handling authentication flows such as email and google login
+         */
+
+        CONFIRM: "/auth/confirm",
+        CALLBACK: "/auth/callback",
+    },
+
+    PROTECTED: {
+        USER_DASHBOARD: "/app",
+        USER_BILLING: "/app/billing",
+        USER_PROFILE: "/app/user-profile",
+
+        /**
+         * the following routes are (standalone) routes
+         * these do not contain a layout unlike the other protected routes
+         */
+
+        CHOOSE_PRICING_PLAN: "/choose-pricing-plan",
+        ONBOARDING: "/onboarding",
+        PLAN_CONFIRMATION: "/plan-confirmation",
+    },
+} as const;
+```
+
+### seo.config.ts
+
+This file is used to configure the SEO of the app. It’s used to set the title, description, etc.
+
+Before launching an app with this boilerplate, please make sure to replace all the boilerplate data such as title, description, etc. with the actual data!
+
+```typescript
+export const seoConfig: SEOConfig = {
+    default: {
+        title: "Lightweight SaaS Boilerplate • 2mrw",
+        template: "%s • 2mrw", // used for page-specific titles: "Sign In • 2mrw"
+        description:
+            "Launch your SaaS faster with our Next.js and Supabase boilerplate.",
+        keywords: ["SaaS boilerplate", "Next.js template", "Supabase starter"],
+        url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://2mrw.dev",
+        locale: "en-US",
+
+        // open graph image (used by Facebook, LinkedIn, etc.)
+        ogImage: {
+            url: "/og-image.jpg",
+            width: 1200,
+            height: 630,
+            alt: "2mrw SaaS Boilerplate",
+        },
+
+        // twitter config (used by Twitter)
+        twitter: {
+            handle: "@timohuennebeck",
+            site: "@2mrw",
+            cardType: CardType.SUMMARY_LARGE_IMAGE,
+        },
+    },
+...
+};
+```
+
+<Note>
+**To-Do’s:**
+
+Update the seoConfig with the actual data for your app such as the title, description, keywords, etc.
+
+</Note>
+
+### Generating SEO For Specific Pages
+
+You can also generate SEO for specific pages. This is useful if you want to have a different title, description, etc. for a specific page.
+
+```typescript
+const seo = generateSeo(seoConfig, {
+    title: "Sign In",
+    description: "You can sign in to your account using email or google.",
+    keywords: ["Sign in", "Email", "Google"],
+    url: "/auth/sign-in",
+});
+```
+
+This will generate the following SEO object behind the scenes:
+
+```typescript
+{
+    title: "Sign In • 2mrw",
+    description: "You can sign in to your account using email or google.",
+    keywords: ["Sign in", "Email", "Google"],
+    url: "https://2mrw.dev/auth/sign-in",
+}
 ```

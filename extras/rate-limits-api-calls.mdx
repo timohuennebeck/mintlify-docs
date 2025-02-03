@@ -1,0 +1,116 @@
+---
+    title: "Rate Limits (API Calls)"
+    description: "For plans that introduce a rate limit (e.g. allowing a user to upload 50 files per month), it's recommended to limit the number of API calls a user can perform in a given time frame based on their IP address. In this example, we'll be limiting it to 5 API calls per minute using Upstash."
+---
+
+<Info>
+    You can find an example of how the `middleware.ts` file should look like at the end of this
+    page.
+</Info>
+
+1. You can create a new Upstash account [here](https://console.upstash.com/login).
+
+2. Create a Redis database.
+
+3. In the details section of the dashboard, get the `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`.
+
+4. Let's now update the following variables inside the `.env.local` in the codebase:
+
+```typescript
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
+```
+
+In the codebase, run the following command to install the @upstash/ratelimit package:
+
+```bash
+npm install @upstash/redis @upstash/ratelimit
+```
+
+In the middleware.ts file, add an RATE_LIMITED_URLS arr outside of the middleware function. This arr contains the URLs that will be rate limited.
+
+```typescript
+const RATE_LIMITED_URLS = ["/api/example-call"];
+```
+
+Then, initialise the redis client with the .env variables we just copied:
+
+```typescript
+const redis = new Redis({
+    url: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_URL,
+    token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN,
+});
+```
+
+You can now add the rateLimit outside of the middleware function. In our case, we'll be limiting it to 5 API calls per minute (60 seconds). If a user makes more than 5 API calls in a minute, a 429 response will be returned.
+
+```typescript
+const ratelimit = new Ratelimit({
+    redis: redis,
+    limiter: Ratelimit.slidingWindow(5, "60 s"),
+});
+```
+
+You'll just have to add this if statement to check if the URL is rate limited and return the appropriate response and then we're done.
+
+```typescript
+if (RATE_LIMITED_URLS.some((url) => request.nextUrl.pathname.startsWith(url))) {
+    const ip = request.ip ?? "127.0.0.1";
+    const { success } = await ratelimit.limit(ip);
+
+    if (!success) {
+        return new NextResponse("Too Many Requests", { status: 429 });
+    }
+}
+```
+
+<Note>
+    Please add this if statement inside the middleware function BUT before the
+    `supabaseClient.auth.getUser()` function. Otherwise, the rate limit will not work as it will be
+    executed after all the API calls have been made.
+</Note>
+
+Here's an example of how the middleware.ts file should look like:
+
+```typescript
+import { Redis } from "@upstash/redis";
+import { Ratelimit } from "@upstash/ratelimit";
+
+const RATE_LIMITED_URLS = ["/api/example-call"];
+
+...
+
+const redis = new Redis({
+url: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_URL,
+token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_REST_TOKEN,
+});
+
+const ratelimit = new Ratelimit({
+redis: redis,
+limiter: Ratelimit.slidingWindow(5, "60 s"),
+});
+
+export const middleware = async (request: Request) => {
+    ...
+
+    if (RATE_LIMITED_URLS.some((url) => request.nextUrl.pathname.startsWith(url))) {
+        const ip = request.ip ?? "127.0.0.1";
+        const { success } = await ratelimit.limit(ip);
+
+        if (!success) {
+            return new NextResponse("Too Many Requests", { status: 429 });
+        }
+    }
+
+    const supabaseClient = createServerClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+            {
+                cookies: {...},
+            },
+        );
+
+    ...
+
+};
+```

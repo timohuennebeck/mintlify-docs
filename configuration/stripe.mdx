@@ -1,0 +1,133 @@
+---
+Title: "Stripe"
+description: ""
+---
+
+2mrw uses Stripe for all billing related transactions. Follow these steps to set up the products and prices, set up the Stripe CLI, etc.
+
+<Steps>
+    <Step title="Creating a Product in Stripe">
+        <video
+            autoPlay
+            controls
+            muted
+            loop
+            playsInline
+            className="w-full aspect-video"
+            src="https://www.dropbox.com/scl/fi/xf2rndwi2j0w5dd4252op/stripe-create-product.mp4?rlkey=9kc2ehnijn2l9j9fcg2abfcas&st=7aan332a&raw=1"
+        ></video>
+    </Step>
+    <Step title="Updating The stripe_price_id Inside The Codebase">
+    In this example, we’re updating the **stripe_price_id** for the **ESSENTIALS** plan for the **MONTHLY** subscription.
+
+    The exact same logic applies to all other plans when updating their **stripe_price_id**. For instance, when adding the annual plan for the **INDIE HACKER** plan we just have to get its price id from Stripe and insert it into the appropiate object inside our pricing.config.ts file.
+
+        <video
+            autoPlay
+            controls
+            muted
+            loop
+            playsInline
+            className="w-full aspect-video"
+            src="https://www.dropbox.com/scl/fi/4bm8ac9j1ikuzee86sjv7/stripe-copy-price-id.mp4?rlkey=x758lkcsnjqet30x41qjri6p1&st=jn1xt10s&raw=1"
+        ></video>
+
+</Step>
+
+<Step title="Updating the Stripe Secret Key">
+    TL / DR: You should have a stripe secret key in the **.env.local** file that can be found in the
+    Stripe Dashboard under the API Keys tab.
+
+        <video
+            autoPlay
+            controls
+            muted
+            loop
+            playsInline
+            className="w-full aspect-video"
+            src="https://www.dropbox.com/scl/fi/cndpwmkgwnfferq64gyal/stripe-get-api-key.mp4?rlkey=026u1gictdyrkbuaeyiy0okko&st=xci4swov&raw=1"
+        ></video>
+
+</Step>
+
+<Step title="Enabling Stripe Billing Portal">
+    Search for Customer Portal in the Stripe Dashboard and enable it by clicking Activate Link. This
+    will enable the Stripe Billing Portal.
+</Step>
+
+<Step title="Setting up the Stripe CLI">
+    1. Install the Stripe CLI using brew:
+
+    ```bash
+    brew install stripe/stripe-cli/stripe
+    ```
+
+    2. Log in to Stripe via the CLI:
+
+    ```bash
+    stripe login
+    ```
+
+    3. Start the Stripe webhook listener:
+
+    ```bash
+    npm run stripe:listen
+    ```
+
+    4. You will now receive a webhook signing secret from the Stripe CLI. Update the `.env.local` file with it:
+    ```typescript
+    STRIPE_WEBHOOK_SECRET=
+    ```
+
+</Step>
+</Steps>
+
+### How To Use Stripe on Localhost
+
+In order to use Stripe on localhost, we need to start the Stripe CLI and enable test mode in the Stripe Dashboard like seen in the demo below. You can run the following command to start the Stripe CLI:
+
+```bash
+npm run stripe:listen
+```
+
+The stripe webhook **api/webhook/stripe/route.ts** will now listen to incoming Stripe events such as **checkout.session.completed, subscription.updated, subscription.deleted**, etc.
+
+        <video
+            autoPlay
+            controls
+            muted
+            loop
+            playsInline
+            className="w-full aspect-video"
+            src="https://www.dropbox.com/scl/fi/6hmrbclfwz70k2vybxlp3/enable-stripe-test-mode.mp4?rlkey=6hcpzfl49jpe2qp11mze9e0de&st=472reudh&raw=1"
+        ></video>
+
+### How To Use Stripe In Production
+
+TL / DR: You should have a stripe webhook endpoint that listens for the **checkout.session.completed, customer.subscription.updated and customer.subscription.trial_will_end** events.
+
+        <video
+            autoPlay
+            controls
+            muted
+            loop
+            playsInline
+            className="w-full aspect-video"
+            src="https://www.dropbox.com/scl/fi/og0i3gl48599u3b16euuf/stripe-production-setup.mp4?rlkey=pqnzekhc455l3alxbkbqxi347&st=cpveg2jh&raw=1"
+        ></video>
+
+You now have an active stripe webhook that will listen to the events mentioned above and trigger the appropriate actions in the codebase.
+
+### Further Configuration (Optional)
+
+If desired, it’s also possible to configure the **PAYOUT** schedule in the Stripe Dashboard and activate emails for successful **PAYMENTS** and **REFUNDS**.
+
+        <video
+            autoPlay
+            controls
+            muted
+            loop
+            playsInline
+            className="w-full aspect-video"
+            src="https://www.dropbox.com/scl/fi/tvu1tip4kqa9p7of2qabd/stripe-change-payout-schedule.mp4?rlkey=xc29pljb15x7lujoe7pkgtf31&st=g9m0h73a&raw=1"
+        ></video>

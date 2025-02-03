@@ -1,0 +1,41 @@
+---
+    title: "Publish Codebase"
+    description: "This guide covers committing changes, creating a project, importing environment variables, connecting your domain, and setting up Stripe and Google Sign-In for production."
+---
+
+### Publish To Production
+
+There are a lot of different services to publish a codebase to production. In this guide, we will be using Vercel. For other services, please refer to their corresponding documentation.
+
+<Steps>
+    <Step title="Committing Changes">
+        ```bash
+        git add .
+        git commit -m "Last commit"
+        git push
+        ```
+    </Step>
+
+    <Step title="Creating a Project + Importing (`.env`) Variables">
+        INSERT_VIDEO
+
+        <Info>
+            The **NEXT_PUBLIC_SITE_URL** should be the URL of your production environment. For instance, for me it would be **https://2mrw.dev** and not **http://localhost:3000**.
+        </Info>
+    </Step>
+
+    <Step title="Connecting Your Domain">
+        This step is not detailed because it varies quite a bit between different hosting providers. For instance, as seen in the video below, we were provided with an **A and CNAME record** that we'll need to add to our domain provider's DNS settings.
+
+        INSERT_VIDEO
+    </Step>
+
+    <Step title="Setting Up Stripe For Production">
+        Please refer to the Stripe [How To Use Stripe In Production](https://docs.2mrw.dev/configuration/stripe#how-to-use-stripe-in-production) section inside our Stripe setup guide.
+    </Step>
+
+    <Step title="Setting Up Google Sign-In For Production">
+        Please refer to the Supabase [How To Use Google Sign-In In Production](https://docs.2mrw.dev/configuration/user-authentication#how-to-use-google-sign-in-in-production) section inside our User authentication setup guide.
+    </Step>
+
+</Steps>
