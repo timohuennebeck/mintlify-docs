@@ -22,16 +22,20 @@
             "to": "#64B5F6"
         }
     },
+    "topbarCtaButton": {
+        "name": "Go to 2mrw.dev",
+        "url": "https://2mrw.dev"
+    },
     "topbarLinks": [
         {
-            "name": "Support",
-            "url": "mailto:hello@2mrw.dev"
+            "name": "Find me on Twitter",
+            "url": "https://www.x.com/timohuennebeck"
         }
     ],
     "anchors": [
         {
-            "name": "Purchase Boilerplate",
-            "icon": "star",
+            "name": "Support",
+            "icon": "headset",
             "url": "https://2mrw.dev"
         }
     ],
