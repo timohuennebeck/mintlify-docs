@@ -38,7 +38,7 @@
     "navigation": [
         {
             "group": "Start Here",
-            "pages": ["introduction", "initial"]
+            "pages": ["introduction"]
         },
         {
             "group": "Configuration",
