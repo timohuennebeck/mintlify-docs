@@ -1,0 +1,93 @@
+---
+title: "Email"
+description: "This boilerplate comes with a set of custom transactional emails that are used for various purposes including: free trial started, free trial expires soon and referral invites."
+---
+
+FYI: You can also add or remove existing emails with the `email.config.ts`.
+
+### Prerequisites
+
+Before customising our emails, please make sure to replace the logo URL in the emails. You can use a tool like [Imgur](https://imgur.com/upload) to host the image and then use the URL in the emails.
+
+### Setting Up Resend
+
+<Steps>
+    <Step title="Creating a Resend account">
+        You can sign up for a free account at [Resend](https://resend.com/)
+    </Step>
+    <Step title="Setup SMTP in Supabase">
+        Please refer to the [Resend SMTP](https://resend.com/changelog/supabase-integration)
+        documentation to learn more about how to set up Resend SMTP in Supabase.
+    </Step>
+    <Step title="Setting up Supabase Emails">
+        Supabase has a set of built-in emails that are used for various purposes such as sign up, email confirmation, etc.
+
+        1. Download all the email templates [here]() required for the Supabase Emails, e.g., Confirm Email Change, Password Reset, etc.
+        2. Paste each email into its corresponding email template which can be found in the dashboard under authentication -> email templates
+
+        In order for the authentication to work we need to use a `token_hash` inside the URL. Here are the paths for each email.
+
+        <Note>
+        This step isn't required if the emails have been downloaded and copied as mentioned in the previous step. This is just an FYI of how it works.
+        </Note>
+
+        For the **Confirm Signup** email, we need to use the following path:
+
+        ```typescript
+        {{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup
+        ```
+
+        For the **Magic Link** email, we need to use the following path:
+
+        ```typescript
+        {{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=magiclink
+        ```
+
+        For the **Change Email Address** email, we need to use the following path:
+
+        ```typescript
+        {{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email_change
+        ```
+
+        For the **Reset Password** email, we need to use the following path:
+
+        ```typescript
+        {{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery
+        ```
+    </Step>
+    <Step title="Setting Up Custom Transactional Emails (Optional)">
+        <Note>
+            This boilerplate comes with a set of custom transactional emails that are used for various purposes including: free trial started, free trial expires soon and referral invites.
+
+            FYI: Including these custom transactional emails is optional but provides a more pleasant user experience.
+        </Note>
+
+        In this step, we’ll have to create various transactional emails based on the email.config.ts file.
+
+        Inside our `email.config.ts` enable or disable the desired emails. That's it.
+
+        ```typescript
+        export const emailConfig: EmailConfigType = {
+            [EmailType.FREE_TRIAL_STARTED]: {
+                component: FreeTrialStartedEmail,
+                isEnabled: false,
+            },
+            [EmailType.FREE_TRIAL_EXPIRES_SOON]: {
+                component: FreeTrialExpiresEmail,
+                isEnabled: false,
+            },
+            [EmailType.REFERRAL_INVITE]: {
+                component: ReferralInviteEmail,
+                isEnabled: false,
+            },
+        };
+        ```
+
+        This boilerplate uses React Email under the hood for the emails. Thus, all emails can be further customised if desired.
+
+        ```bash
+        cd react-email-starter && npm run dev
+        ```
+    </Step>
+
+</Steps>
