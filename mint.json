@@ -7,6 +7,9 @@
         "light": "/logo/light.svg"
     },
     "favicon": "/favicon.svg",
+    "background": {
+        "style": "windows"
+    },
     "colors": {
         "primary": "#2196F3",
         "light": "#64B5F6",
@@ -25,7 +28,7 @@
     "anchors": [
         {
             "name": "Purchase Boilerplate",
-            "icon": "book-open-cover",
+            "icon": "star",
             "url": "https://2mrw.dev"
         }
     ],
