@@ -1,0 +1,65 @@
+---
+title: "User Referrals"
+description: "This boilerplate comes with user referrals (refera a friend) out of the box to allow users to refer friends and get rewards for that"
+---
+
+Things like sending the appropiate email, creating a referral page have been configured in advance. You just have to enable the `REFERRAL_INVITE` email inside the `email.config.ts` file.
+
+**Here's how it works:**
+
+If a user is on the `app/refer` page and submits the form - the following email will be sent to his friend:
+
+```typescript
+await axios.post(postUrl, {
+    to: values.email,
+    subject: `You've been invited to join ${appConfig.company.name}!`,
+    emailType: EmailType.REFERRAL_INVITE,
+    variables: {
+        nameOfReferrer: dbUser?.email,
+        referralCode: dbUser?.referral_code,
+    },
+});
+```
+
+Then, when his friends clicks the link in the email he will redirected to the `auth/sign-up` page which includes the `referralCode` in the URL like so `*/2mrw.dev/auth/sign-up/mode=magic-link:ref=5ZHA81`.
+
+If his friend now signs up with the referral code our `processReferralSignup` fn will be called where we can add some custom code to decide what the friend / or both users should get for a successful referral:
+
+```typescript
+export const processReferralSignup = async ({
+    newUserId,
+    newUserEmail,
+    referralCode,
+}: ProcessReferralSignupParams) => {
+    const { data: existingReferral } = await getExistingReferral(newUserEmail); // check for pending referral (email, password, magic link flow, etc.)
+
+    if (existingReferral) {
+        return await updateReferralToCompleted(existingReferral.id, newUserId);
+    }
+
+    if (referralCode) {
+        const supabase = await createClient(); // if no pending referral but we have a referral code (Google auth flow)
+
+        const { referrer } = await getReferrerByReferralCode(referralCode);
+
+        if (!referrer) {
+            return { success: false, error: "The referral code is invalid" };
+        }
+
+        const { error: insertError } = await supabase.from("referrals").insert({
+            referrer_user_id: referrer.id,
+            referred_email: newUserEmail,
+            referred_user_id: newUserId,
+            status: ReferralStatus.COMPLETED,
+        });
+
+        return { success: !insertError, insertError };
+    }
+
+    /**
+     * FYI: This is the part where you can add new logic to the referral flow such as adding credits to the referrer and the referred users accounts, etc.
+     */
+
+    return { success: true };
+};
+```

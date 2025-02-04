@@ -36,7 +36,7 @@
         {
             "name": "Support",
             "icon": "headset",
-            "url": "https://2mrw.dev"
+            "url": "https://www.x.com/timohuennebeck"
         }
     ],
     "navigation": [
@@ -65,6 +65,7 @@
                 "configuration/email",
                 "configuration/stripe",
                 "configuration/edge-functions",
+                "configuration/user-referrals",
                 "configuration/data-files"
             ]
         },
