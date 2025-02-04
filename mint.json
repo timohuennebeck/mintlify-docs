@@ -23,15 +23,9 @@
         }
     },
     "topbarCtaButton": {
-        "name": "Go to 2mrw.dev",
+        "name": "Find me on Twitter",
         "url": "https://2mrw.dev"
     },
-    "topbarLinks": [
-        {
-            "name": "Find me on Twitter",
-            "url": "https://www.x.com/timohuennebeck"
-        }
-    ],
     "anchors": [
         {
             "name": "Support",
