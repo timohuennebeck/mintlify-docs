@@ -42,7 +42,7 @@
     "navigation": [
         {
             "group": "Start Here",
-            "pages": ["introduction"]
+            "pages": ["introduction", "launch-in-five-minutes"]
         },
         {
             "group": "Configuration",

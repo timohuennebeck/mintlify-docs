@@ -1,0 +1,52 @@
+---
+title: "Launch in 5 Minutes"
+description: "Pre-Requirements: You should have cloned the repo from GitHub - which is shown in the introduction on how to do that."
+icon: "star"
+iconType: "solid"
+---
+
+<Steps>
+    <Step title="Supabase Configuration">
+        For detailed setup instructions, please refer to these guides:
+        - [Database Setup](/configuration/database)
+        - [User Login Guide (Google, Password, etc.)](/configuration/user-authentication)
+        - [Edge Functions](/configuration/edge-functions)
+        - [Email Configuration](/configuration/email)
+
+        **TL;DR:** Create your database tables, set up auth for Google and other providers, publish your Edge Functions, and connect Resend to start sending emails.
+    </Step>
+
+    <Step title="Stripe Configuration">
+    For detailed setup instructions, please refer to the guide below:
+    - [Stripe Integration](/configuration/stripe)
+
+    **TL;DR:** Create your products in Stripe, add your price IDs to pricing.config.ts, and configure your subscription plans in the [billing.config.ts](/configuration/config-files/billing-config).
+    </Step>
+
+    <Step title="SEO Configuration">
+        For detailed setup instructions, please refer to the guide below:
+        - [SEO Optimisation](/configuration/config-files/seo-config)
+
+        **TL;DR:** Change out the `icon.ico` in the `app` folder and configure your app's metadata in the `seo.config.ts` file.
+    </Step>
+
+    <Step title="Landing Page Configuration">
+        Update your landing page COPY and customise the components to match your brand.
+
+        Feel free to refer to the components to see what these look like inside the app:
+
+        - [Header](/components-showcase/header)
+        - [Hero](/components-showcase/hero)
+        - [Featured Testimonial](/components-showcase/featured-testimonial)
+        - etc.
+
+    </Step>
+
+    <Step title="Launching">
+        For detailed setup instructions, please refer to the guide below:
+        - [Publishing the Codebase](/production/publish-codebase)
+
+        **TL;DR:** DEPLOY your project on Vercel or your preferred hosting provider.
+    </Step>
+
+</Steps>
