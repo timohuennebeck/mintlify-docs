@@ -7,7 +7,7 @@ FYI: You can also add or remove existing emails with the `email.config.ts`.
 
 ### Prerequisites
 
-Before customising our emails, please make sure to replace the logo URL in the emails. You can use a tool like [Imgur](https://imgur.com/upload) to host the image and then use the URL in the emails.
+Before customising our emails, please make sure to replace the `[INSERT_LOGO_URL]` and `[INSERT_COMPANY_NAME]` in the emails. You can use a tool like [Imgur](https://imgur.com/upload) to host the image and then use the URL in the emails.
 
 ### Setting Up Resend
 
@@ -22,8 +22,8 @@ Before customising our emails, please make sure to replace the logo URL in the e
     <Step title="Setting up Supabase Emails">
         Supabase has a set of built-in emails that are used for various purposes such as sign up, email confirmation, etc.
 
-        1. Download all the email templates [here]() required for the Supabase Emails, e.g., Confirm Email Change, Password Reset, etc.
-        2. Paste each email into its corresponding email template which can be found in the dashboard under authentication -> email templates
+        1. Download all the email templates [here](https://www.dropbox.com/scl/fi/314ez5cz07jxd9a171y1a/supabase-emails.zip?rlkey=rxk4fxiq1ls208ior6mcut6zk&st=2wnypinv&raw=1) required for the Supabase Emails, e.g., Confirm Email Change, Password Reset, etc.
+        2. Paste each email into its corresponding email template which can be found in the Supabase dashboard under Email Templates
 
         In order for the authentication to work we need to use a `token_hash` inside the URL. Here are the paths for each email.
 
