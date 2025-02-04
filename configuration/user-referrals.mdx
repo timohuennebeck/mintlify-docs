@@ -25,6 +25,12 @@ Then, when his friends clicks the link in the email he will redirected to the `a
 
 If his friend now signs up with the referral code our `processReferralSignup` fn will be called where we can add some custom code to decide what the friend / or both users should get for a successful referral:
 
+<Note>
+This boilerplate doesn't come with rewards out of the box. You'll have to create the custom logic for it as referral rewards are quite different for each app.
+
+For instance, for [Reelify](https://www.itsreelify.com), I've decided to give both users video credits to create more videos. However, for another app that could be giving one month for free.
+</Note>
+
 ```typescript
 export const processReferralSignup = async ({
     newUserId,
