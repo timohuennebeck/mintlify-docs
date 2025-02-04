@@ -1,0 +1,115 @@
+---
+title: "pricing.config.ts"
+description: "This file is used to configure the pricing of the app and contains all the Stripe related information such as the pricing plans, free trial, etc."
+---
+
+You can customise the available plans inside the defaultPricingPlans. The code will then get the correct one based on the `billingPlan` that was specified inside the `billing.config.ts`.
+
+<Warning>
+    It's recommended to not change the `FREE_STRIPE_PRICE_INDICATOR` as this is used for the free plan and used throughout the
+    codebase.
+</Warning>
+
+```typescript
+export const defaultPricingPlans: {...} = {
+    monthly: [
+        {
+            name: SubscriptionTier.FREE,
+            description:
+                "This is the description of the FREE plan and can be modified.",
+            price: "$0",
+            billing_period: BillingPeriod.MONTHLY,
+            billing_plan: BillingPlan.RECURRING,
+            is_highlighted: false,
+            stripe_price_id: FREE_STRIPE_PRICE_INDICATOR,
+            subscription_tier: SubscriptionTier.FREE,
+        },
+        ...
+    ],
+    annual: [
+        {
+            name: SubscriptionTier.FREE,
+            description:
+                "This is the description of the FREE plan and can be modified.",
+            price: "$0",
+            billing_period: BillingPeriod.YEARLY,
+            billing_plan: BillingPlan.RECURRING,
+            is_highlighted: false,
+            stripe_price_id: FREE_STRIPE_PRICE_INDICATOR, // Important! Do not change this!!
+            subscription_tier: SubscriptionTier.FREE,
+        },
+        ...
+    ],
+    oneTime: [
+        {
+            name: SubscriptionTier.ESSENTIALS,
+            description:
+                "This is the description of the ESSENTIALS plan and can be modified.",
+            price: "$999",
+            billing_period: BillingPeriod.LIFETIME,
+            billing_plan: BillingPlan.ONE_TIME,
+            is_highlighted: false,
+            stripe_price_id: "YOUR_STRIPE_PRICE_ID",
+            subscription_tier: SubscriptionTier.ESSENTIALS,
+        },
+        ...
+    ],
+};
+```
+
+You’re gonna notice that we also have a `pricingCardFeatures` and `pricingComparisonFeatures` object inside our `pricing.config.ts` file.
+
+`pricingCardFeatures` is used to configure what features to show on the pricing card `pricing-card.tsx`
+
+```typescript
+export const pricingCardFeatures: PricingFeatureItem[] = [
+    {
+        name: "Duis aute irure dolor",
+        [SubscriptionTier.FREE]: true,
+        [SubscriptionTier.ESSENTIALS]: true,
+        [SubscriptionTier.INDIE_HACKER]: true,
+    },
+    ...
+];
+```
+
+`pricingComparisonFeatures` is used to configure what features to show on the pricing comparision table `pricing-comparison.tsx`
+
+```typescript
+export const pricingComparisonFeatures: PricingFeatureSection[] = [
+    {
+        category: "Lorem",
+        items: [
+            {
+                name: "Lorem ipsum dolor sit amet",
+                [SubscriptionTier.FREE]: true,
+                [SubscriptionTier.ESSENTIALS]: true,
+                [SubscriptionTier.INDIE_HACKER]: true,
+            },
+            ...
+        ],
+    },
+    {
+        category: "Ipsum",
+        items: [
+            {
+                name: "Minim veniam",
+                [SubscriptionTier.FREE]: "1 GB",
+                [SubscriptionTier.ESSENTIALS]: "50 GB",
+                [SubscriptionTier.INDIE_HACKER]: "500 GB",
+            },
+            ...
+        ],
+    },
+];
+```
+
+<Note>
+**To-Do’s:**
+
+-   Configure the `name, description, price, stripe_price_id and subscription_tier` for each of the plans inside the `defaultPricingPlans`. You can find the stripe_price_id in Stripe.
+-   Configure the `pricingCardFeatures` and `defaultPricingFeatures` objects to contain the relevant features for each subscription.
+
+FYI: You’ll be shown in the Stripe section how to create the plans and get the `stripe_price_id` for each plan.
+
+</Note>

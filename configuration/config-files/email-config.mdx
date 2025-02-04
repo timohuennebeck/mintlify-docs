@@ -1,0 +1,25 @@
+---
+title: "email.config.ts"
+description: "This boilerplate comes with a set of pre-built email templates out of the box - built with Resend."
+---
+
+For emails to work, please connect this boilerplate with Resend. You can refer to the Emails section on how to do this.
+
+Feel free to add or remove emails from the **email.config.ts** file.
+
+```typescript
+export const emailConfig: EmailConfigType = {
+    [EmailType.FREE_TRIAL_STARTED]: {
+        component: FreeTrialStartedEmail,
+        isEnabled: true,
+    },
+    [EmailType.FREE_TRIAL_EXPIRES_SOON]: {
+        component: FreeTrialExpiresEmail,
+        isEnabled: true,
+    },
+    [EmailType.REFERRAL_INVITE]: {
+        component: ReferralInviteEmail,
+        isEnabled: false,
+    },
+};
+```

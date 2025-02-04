@@ -1,0 +1,68 @@
+---
+title: "app.config.ts"
+description: "This file is responsible for handling general information such as enabling the testimonial sidepanel on the auth/sign-in page, enabling / disabling onboarding, etc."
+---
+
+Each of the settings also has a component that can be found inside the Components section to see what each component looks like inside the app.
+
+```typescript
+export const appConfig: GeneralConfig = {
+    testimonialSidePanel: {
+        isEnabled: true,
+        direction: "right",
+    }, // testimonial-side-panel.tsx
+
+    onboarding: {
+        isEnabled: true,
+        checklist: {
+            isEnabled: true,
+            direction: "left",
+        },
+    }, // onboarding-flow.tsx and onboarding-checklist-trigger.tsx
+
+    themeToggle: {
+        isEnabled: true,
+        defaultTheme: "light",
+    }, // theme-toggle.tsx
+
+    feedback: {
+        bugReport: {
+            isEnabled: true,
+            formUrl: "https://tally.so/r/bug-report",
+        }, // feedback-section.tsx
+
+        featureRequest: {
+            isEnabled: true,
+            formUrl: "https://tally.so/r/feature-request",
+        }, // feedback-section.tsx
+
+        forms: {
+            accountDeletion: {
+                isEnabled: true, // controls whether to show feedback prompt after account deletion
+                formUrl: "https://tally.so/r/exit-survey",
+            }, // form-status-message.tsx
+        },
+    },
+
+    company: {
+        name: "2mrw",
+        contactEmail: "support@example.com",
+        senderEmail: "m@example.com", // this email is used as the sender email for all outgoing emails such as freeTrialStarted, etc.
+    },
+};
+```
+
+<Note>
+**To-Do’s:**
+
+Feel free to configure the following features as desired as these are all optional.
+
+-   testimonialSidePanel (testimonial-side-panel.tsx)
+-   onboarding (onboarding-flow.tsx)
+-   accountDeletion (form-status-message.tsx)
+
+Each feature can be toggled in app.config.ts using their respective isEnabled flags.
+
+**TL;DR: no action required. You can just leave the default settings.**
+
+</Note>

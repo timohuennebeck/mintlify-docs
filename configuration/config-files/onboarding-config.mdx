@@ -1,0 +1,70 @@
+---
+title: "onboarding.config.ts"
+description: "This file is used to configure the onboarding-checklist.tsx allowing to provide the users with rewards for each completed step."
+---
+
+If an onboarding step is completed it will create a new row in Supabase for the `onboarding_rewards` table to keep track of the tasks the user has completed.
+
+There is no limit on the amount of steps that can be added to the onboarding. Though, I recommend to keep it between 3-4 steps.
+
+It's recommended to just look at the onboarding-checklist.tsx and change some values in the `onboarding.config.ts` to see how the component will change.
+
+```typescript
+export const onboardingConfig = {
+    title: "Getting Started",
+    description: "Finish all onboarding tasks to earn an extra",
+    bonusReward: {
+        amount: 25,
+        unit: "tokens",
+    },
+    tasks: [
+        {
+            id: "upload-demo",
+            title: "Upload a Product Demo",
+            description: "Upload a product demo to get started",
+            reward: {
+                amount: 2,
+                unit: "tokens",
+            },
+            action: {
+                label: "Upload Demo",
+                href: "/app/product-demos",
+            },
+            completionCheck: {
+                field: "uploadedProductDemos",
+                target: 1,
+            },
+        },
+        {
+            id: "invite-friends",
+            title: "Invite 5 Friends",
+            description: "Invite friends to join the platform",
+            reward: {
+                amount: 15,
+                unit: "tokens per referral",
+            },
+            action: {
+                label: "Invite 5 Friends",
+                href: "/app/refer",
+            },
+            completionCheck: {
+                field: "referralCount",
+                target: 5,
+            },
+            multipleSteps: 5, // used if a user needs to complete multiple steps to get the reward, e.g. referring multiple friends
+            disableRewardForMultipleSteps: true,
+        },
+    ],
+} as const satisfies OnboardingConfig; // uses satisfies as we otherwise can't use as const type assertion
+```
+
+You can then pass down the values for the `completionCheck.field` we declared in our `onboarding.config.ts` which will then check if the condition has been met.
+
+```jsx
+<OnboardingChecklistTrigger
+    userProgress={{ uploadedProductDemos: productDemos.length, referralCount: referrals.length }}
+    config={onboardingConfig}
+    onClaimBonus={...}
+    isClaimingBonus={...}
+/>
+```

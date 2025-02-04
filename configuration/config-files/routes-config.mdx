@@ -1,0 +1,67 @@
+---
+title: "routes.config.ts"
+description: "This file is used to configure the routes of the app. It’s divided into 3 main sections:"
+---
+
+**PUBLIC:** These are the routes that are ALWAYS accessible - even when authenticated.
+
+**AUTH:** These are the routes that are used for authentication flows such as login, signup, forgot password, etc. These can’t be accessed when authenticated.
+
+**PROTECTED:** These are the routes that are protected and require the user to be authenticated.
+
+Feel free to just add or remove routes from the appropiate section as the middleware.ts will handle the rest.
+
+```typescript
+export const ROUTES_CONFIG = {
+    PUBLIC: {
+        LANDING_PAGE: "/",
+        STATUS_ERROR: "/auth-status/error",
+        STATUS_SUCCESS: "/auth-status/success",
+    },
+
+    AUTH: {
+        SIGN_IN: "/auth/sign-in",
+        SIGN_UP: "/auth/sign-up",
+
+        /**
+         * the following routes are (password-management) routes
+         * these are used for password management flows such as forgot password and update password
+         */
+
+        FORGOT_PASSWORD: "/auth/forgot-password",
+        UPDATE_PASSWORD: "/auth/update-password",
+
+        /**
+         * the following routes are (handlers) routes
+         * these are used for handling authentication flows such as email and google login
+         */
+
+        CONFIRM: "/auth/confirm",
+        CALLBACK: "/auth/callback",
+    },
+
+    PROTECTED: {
+        USER_DASHBOARD: "/app",
+        USER_BILLING: "/app/billing",
+        USER_PROFILE: "/app/user-profile",
+
+        /**
+         * the following routes are (standalone) routes
+         * these do not contain a layout unlike the other protected routes
+         */
+
+        CHOOSE_PRICING_PLAN: "/choose-pricing-plan",
+        ONBOARDING: "/onboarding",
+        PLAN_CONFIRMATION: "/plan-confirmation",
+    },
+} as const;
+```
+
+<Note>
+**To-Do’s:**
+
+-   Feel free to add or remove routes. These are all optional. However, if a route is removed, make sure to also remove it throughout the codebase where it’s being used.
+
+**TL;DR: no action required. You can just leave the default settings.**
+
+</Note>

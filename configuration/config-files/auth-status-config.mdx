@@ -1,0 +1,41 @@
+---
+title: "auth.status.config.ts"
+description: "This file is responsible for handling authentication error and success messages that are shown on the auth-status/error and auth-status success pages."
+---
+
+This boilerplate comes with a set of pre-built success and error messages out of the box. You can refer to the status-page.tsx page to see what the component inside the app look like.
+
+You can just leave the default settings which will take care of things such as Google authentication errors, email error, etc. You can also add or remove messages if desired. It’s as simple as adding a new object inside the appropiate success or error object.
+
+The KEY of each object such as `token-expired` is the name of the error. In order to show a specific error page, redirect the user to the `/auth-status?mode=token-expired` route which will then show the appropiate badge, title, etc.
+
+```typescript
+export const ERROR_TYPES: { [K in ErrorType]: StatusConfig } = {
+    "token-expired": {
+        badge: "LINK ERROR",
+        title: "Link",
+        highlight: "Has Expired",
+        description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae expedita obcaecati modi, nisi reiciendis mollitia!",
+        primaryButton: {
+            href: "/auth/sign-in?method=magic-link",
+            label: "Request New Link",
+        },
+    },
+    ...
+};
+
+export const SUCCESS_TYPES: { [K in SuccessType]: StatusConfig } = {
+    "email-confirmed": {
+        badge: "EMAIL CONFIRMED",
+        title: "Email",
+        highlight: "Confirmed",
+        description: `Your email has been confirmed. You can now continue using ${TextConstants.TEXT__COMPANY_TITLE}.`,
+        primaryButton: {
+            href: "/choose-pricing-plan",
+            label: "Continue",
+        },
+    },
+...
+};
+```

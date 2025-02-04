@@ -47,7 +47,19 @@
         {
             "group": "Configuration",
             "pages": [
-                "configuration/configuration-files",
+                {
+                    "group": "Configuration Files",
+                    "pages": [
+                        "configuration/config-files/app-config",
+                        "configuration/config-files/pricing-config",
+                        "configuration/config-files/billing-config",
+                        "configuration/config-files/auth-status-config",
+                        "configuration/config-files/email-config",
+                        "configuration/config-files/routes-config",
+                        "configuration/config-files/seo-config",
+                        "configuration/config-files/onboarding-config"
+                    ]
+                },
                 "configuration/database",
                 "configuration/user-authentication",
                 "configuration/email",

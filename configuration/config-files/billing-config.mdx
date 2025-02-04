@@ -1,0 +1,29 @@
+---
+title: "billing.config.ts"
+description: ""
+---
+
+```typescript
+isFreePlanEnabled: true, // this will be overridden when ONE_TIME is enabled
+billingPlan: BillingPlan.ONE_TIME, // choose between ONE_TIME or RECURRING
+```
+
+```typescript
+freeTrial: {
+    isEnabled: true, // shows or hides the free trial
+    duration: 14, // the duration of the free trial
+},
+```
+
+<Warning>
+    If OTP is enabled, the free plan as well as the free trial will be disabled as it’s not common
+    to have a free plan / free trial with a OTP.
+</Warning>
+
+<Note>
+**To-Do’s:**
+
+-   Set billingPlan to either BillingPlan.ONE_TIME (for OTPs) or BillingPlan.RECURRING (for recurring subscriptions).
+-   If recurring subscriptions are enabled, set other values such as the freeTrial duration and isFreePlanEnabled, etc.
+
+</Note>

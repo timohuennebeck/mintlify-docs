@@ -1,0 +1,67 @@
+---
+title: "seo.config.ts"
+description: "This file is used to configure the SEO of the app. It’s used to set the title, description, etc."
+---
+
+Before launching an app with this boilerplate, please make sure to replace all the boilerplate data such as title, description, etc. with the actual data!
+
+```typescript
+export const seoConfig: SEOConfig = {
+    default: {
+        title: "Lightweight SaaS Boilerplate • 2mrw",
+        template: "%s • 2mrw", // used for page-specific titles: "Sign In • 2mrw"
+        description:
+            "Launch your SaaS faster with our Next.js and Supabase boilerplate.",
+        keywords: ["SaaS boilerplate", "Next.js template", "Supabase starter"],
+        url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://2mrw.dev",
+        locale: "en-US",
+
+        // open graph image (used by Facebook, LinkedIn, etc.)
+        ogImage: {
+            url: "/og-image.jpg",
+            width: 1200,
+            height: 630,
+            alt: "2mrw SaaS Boilerplate",
+        },
+
+        // twitter config (used by Twitter)
+        twitter: {
+            handle: "@timohuennebeck",
+            site: "@2mrw",
+            cardType: CardType.SUMMARY_LARGE_IMAGE,
+        },
+    },
+...
+};
+```
+
+<Note>
+**To-Do’s:**
+
+-   Update the seoConfig with the actual data for your app such as the title, description, keywords, etc.
+
+</Note>
+
+### Generating SEO For Specific Pages
+
+You can also generate SEO for specific pages. This is useful if you want to have a different title, description, etc. for a specific page.
+
+```typescript
+const seo = generateSeo(seoConfig, {
+    title: "Sign In",
+    description: "You can sign in to your account using email or google.",
+    keywords: ["Sign in", "Email", "Google"],
+    url: "/auth/sign-in",
+});
+```
+
+This will generate the following SEO object behind the scenes:
+
+```typescript
+{
+    title: "Sign In • 2mrw",
+    description: "You can sign in to your account using email or google.",
+    keywords: ["Sign in", "Email", "Google"],
+    url: "https://2mrw.dev/auth/sign-in",
+}
+```
