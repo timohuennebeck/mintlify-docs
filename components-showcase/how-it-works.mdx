@@ -2,10 +2,6 @@
 title: "How It Works"
 ---
 
-import { Callout, Cards, Card, Tab, Tabs } from "nextra/components";
-
-# How It Works Component
-
 ![HowItWorks Component Preview](../assets/components/how-it-works.jpg)
 
 ```typescript
@@ -15,43 +11,61 @@ import HowItWorks from "@/components/marketing/HowItWorks";
     eyebrow="Lorem, ipsum dolor."
     title={
         <>
-            Lorem ipsum dolor sit{" "}
+            Lorem ipsum{" "}
             <span className="relative mt-4 inline-block whitespace-nowrap bg-blue-600 p-2 text-white">
-                amet consectetur,
+                amet consectetur.
             </span>
-            adipisicing elit.
         </>
     }
     description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aperiam voluptates totam fuga labore inventore."
     steps={[
         {
-            number: 1,
-            title: "Lorem ipsum dolor sit amet.",
+            icon: Asterisk,
+            title: "Lorem, ipsum dolor.",
             description:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aperiam voluptates totam fuga labore inventore.",
-            icon: Settings,
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quis error saepe eum quia?",
+            badge: {
+                text: "Step 1",
+                bgColor: "bg-blue-50 dark:bg-blue-950/50",
+                textColor: "text-blue-600",
+            },
+            metrics: [
+                { value: "85%", label: "Success Rate" },
+                { value: "2min", label: "Setup Time" },
+            ],
         },
         {
-            number: 2,
-            title: "Lorem ipsum dolor sit amet.",
+            icon: Asterisk,
+            title: "Lorem, ipsum dolor.",
             description:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aperiam voluptates totam fuga labore inventore.",
-            icon: Settings,
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quis error saepe eum quia?",
+            badge: {
+                text: "Step 2",
+                bgColor: "bg-blue-50 dark:bg-blue-950/50",
+                textColor: "text-blue-600",
+            },
+            metrics: [
+                { value: "85%", label: "Success Rate" },
+                { value: "2min", label: "Setup Time" },
+            ],
         },
         {
-            number: 3,
-            title: "Lorem ipsum dolor sit amet.",
+            icon: Asterisk,
+            title: "Lorem, ipsum dolor.",
             description:
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aperiam voluptates totam fuga labore inventore.",
-            icon: Settings,
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quis error saepe eum quia?",
+            badge: {
+                text: "Step 3",
+                bgColor: "bg-blue-50 dark:bg-blue-950/50",
+                textColor: "text-blue-600",
+            },
+            metrics: [
+                { value: "85%", label: "Success Rate" },
+                { value: "2min", label: "Setup Time" },
+            ],
         },
     ]}
-    videoPaths={[
-        "https://framerusercontent.com/assets/NmYVFvasmFfIhZND3qZbQkMNE.mp4",
-        "https://framerusercontent.com/assets/impzjczRdzEPQh2ezMYGWzGe3Y.mp4",
-        "https://framerusercontent.com/assets/hABzjRMXjNw1XA1si9W04jXifs.mp4",
-    ]}
-/>;
+/>
 ```
 
 ### Tips

@@ -3,8 +3,8 @@
     "name": "Starter Kit",
     "theme": "prism",
     "logo": {
-        "dark": "/logo/dark.svg",
-        "light": "/logo/light.svg"
+        "dark": "/logo/light.svg",
+        "light": "/logo/dark.svg"
     },
     "favicon": "/favicon.svg",
     "background": {
@@ -36,7 +36,7 @@
     "navigation": [
         {
             "group": "Start Here",
-            "pages": ["introduction", "launch-in-five-minutes"]
+            "pages": ["introduction", "launch-in-five-minutes", "changelog"]
         },
         {
             "group": "Configuration",
