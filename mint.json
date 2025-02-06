@@ -60,7 +60,8 @@
                 "configuration/stripe",
                 "configuration/edge-functions",
                 "configuration/user-referrals",
-                "configuration/data-files"
+                "configuration/data-files",
+                "configuration/blog-posts"
             ]
         },
         {

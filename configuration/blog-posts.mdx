@@ -1,0 +1,101 @@
+---
+title: "Blog Posts"
+description: "Create and manage blog posts using MDX files with rich metadata including author information, cover images, and descriptions."
+---
+
+To create a new blog post, add an `.mdx` file to the `src/content/blog` directory. The post will automatically be rendered on:
+
+-   The blog index page (`src/app/blog`)
+-   Individual post pages (`src/app/blog/[slug]`)
+
+## Post Metadata
+
+Each blog post supports the following metadata fields in its frontmatter:
+
+```typescript
+---
+title: string
+description: string
+date: string
+readTime: string
+author: {
+    name: string
+    role: string
+    company: string
+    image: string
+}
+coverImage: string
+tag: string
+---
+```
+
+### Example Metadata
+
+```typescript
+---
+title: "From 0 - 100K Developers In 12 Months"
+description: "How trigger.dev scaled to 100k developers in less than 12 months"
+date: "2025-02-01"
+readTime: "7 min"
+author:
+    name: "Timo Huennebeck"
+    role: "Developer"
+    company: "2mrw"
+    image: "https://i.imgur.com/E6nCVLy.jpeg"
+coverImage: "https://cdn.prod.website-files.com/66f29fc1a009998749da917b/674f20c7d2bd1824715250bd_blog-p-500.jpg"
+tag: "Engineering"
+---
+```
+
+## Writing Content
+
+You can write your post content using standard MDX syntax. MDX supports all standard Markdown features such as headings, bullet points, etc.
+
+### Content Examples
+
+````mdx
+## Section Heading
+
+Regular paragraphs can include **bold**, _italic_, and `inline code` formatting.
+
+### Lists
+
+-   Use bullet points for unordered lists
+-   Support for nested items
+    -   Like this
+    -   And this
+
+1. Numbered lists
+2. Are also supported
+
+### Code Blocks
+
+```typescript
+const example = "Your code here";
+console.log(example);
+```
+````
+
+## Example Complete Post
+
+```mdx
+---
+title: "Getting Started with MDX"
+description: "Learn how to create your first MDX blog post"
+date: "2025-02-06"
+readTime: "5 min"
+author:
+    name: "Jane Smith"
+    role: "Technical Writer"
+    company: "TechCo"
+    image: "/images/authors/jane-smith.jpg"
+coverImage: "/images/blog/mdx-intro.jpg"
+tag: "Tutorial"
+---
+
+## Introduction
+
+Welcome to this guide on creating MDX blog posts. Let's explore the basics...
+
+[...]
+```
