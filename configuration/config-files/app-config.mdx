@@ -13,9 +13,11 @@ export const appConfig: GeneralConfig = {
     }, // testimonial-side-panel.tsx
 
     onboarding: {
-        isEnabled: true,
+        pageFlow: {
+            isEnabled: true, // onboarding flow the user can click through
+        },
         checklist: {
-            isEnabled: true,
+            isEnabled: true, // onboarding checklist shown on the dashboard in the bottom left
             direction: "left",
         },
     }, // onboarding-flow.tsx and onboarding-checklist-trigger.tsx
@@ -38,7 +40,7 @@ export const appConfig: GeneralConfig = {
 
         forms: {
             accountDeletion: {
-                isEnabled: true, // controls whether to show feedback prompt after account deletion
+                isEnabled: true, // shows a provide feedback prompt after account deletion
                 formUrl: "https://tally.so/r/exit-survey",
             }, // form-status-message.tsx
         },

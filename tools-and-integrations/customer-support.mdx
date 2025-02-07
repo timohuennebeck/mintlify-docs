@@ -9,7 +9,27 @@ description: "For customer support, we’ll be using Crisp as it’s a free alte
         - Then, create a new website and find the website id which can be found in the integrations menu, in the HTML option. It’s called **CRISP_WEBSITE_ID**.
     </Step>
     <Step title="Configure Crisp in Codebase">
-        You’ll just have to paste the `CRISP_WEBSITE_ID` inside the `app.config.ts` under websiteId
+        Paste the script code snippet in the root `layout.tsx` file.
+
+        ```typescript
+        {appConfig.customerSupport.isEnabled && (
+            <Script id="crisp-script" strategy="afterInteractive">
+                {`window.$crisp=[];window.CRISP_WEBSITE_ID="${appConfig.customerSupport.websiteId}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`}
+            </Script>
+        )}
+        ```
+
+        Paste the customer support configs into the `app.config.ts` file.
+
+        ```typescript
+        customerSupport: {
+            isEnabled: false,
+            websiteId: "YOUR_CRISP_WEBSITE_ID",
+        },
+        ```
+
+        Paste the `CRISP_WEBSITE_ID` inside the `app.config.ts` under websiteId
         and set the isEnabled to true. The codebase will take care of the rest.
     </Step>
+
 </Steps>
