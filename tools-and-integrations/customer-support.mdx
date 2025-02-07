@@ -19,9 +19,16 @@ description: "For customer support, we’ll be using Crisp as it’s a free alte
         )}
         ```
 
-        Paste the customer support configs into the `app.config.ts` file.
+        Paste the customer support config with its corresponding types into the `app.config.ts` file.
 
         ```typescript
+        customerSupport: {
+            isEnabled: boolean;
+            websiteId: string;
+        };
+
+        ...
+
         customerSupport: {
             isEnabled: false,
             websiteId: "YOUR_CRISP_WEBSITE_ID",
