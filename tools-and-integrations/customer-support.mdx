@@ -9,9 +9,11 @@ description: "For customer support, we’ll be using Crisp as it’s a free alte
         - Then, create a new website and find the website id which can be found in the integrations menu, in the HTML option. It’s called **CRISP_WEBSITE_ID**.
     </Step>
     <Step title="Configure Crisp in Codebase">
-        Paste the script code snippet in the root `layout.tsx` file.
+        Paste the script code snippet in the root `layout.tsx` file inside the `body` tag.
 
         ```typescript
+        import Script from "next/script";
+
         {appConfig.customerSupport.isEnabled && (
             <Script id="crisp-script" strategy="afterInteractive">
                 {`window.$crisp=[];window.CRISP_WEBSITE_ID="${appConfig.customerSupport.websiteId}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`}
