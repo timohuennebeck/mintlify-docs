@@ -15,7 +15,7 @@ Before customising our emails, please make sure to replace the `[INSERT_LOGO_URL
     <Step title="Creating a Resend account">
         You can sign up for a free account [here](https://resend.com/)
     </Step>
-    <Step title="Setup SMTP in Supabase">
+    <Step title="Setting up SMTP in Supabase">
         Please refer to the [Resend SMTP](https://resend.com/changelog/supabase-integration)
         documentation to learn more about how to set up Resend SMTP in Supabase.
     </Step>
@@ -82,6 +82,59 @@ Before customising our emails, please make sure to replace the `[INSERT_LOGO_URL
         ```bash
         cd react-email-starter && npm run dev
         ```
+    </Step>
+
+</Steps>
+
+### How to add new Emails:
+
+<Steps>
+    <Step title="Updating The Email Schema">
+    The emails inside this boilerplate were created with React Email.
+
+    To create a new email, please create one under the `react-email-starter/emails` folder and add a new schema inside the `resend.ts` file for it (so the props that the email will receive):
+
+    ```typescript
+        export const emailSchemas = {
+            [EmailType.FREE_TRIAL_STARTED]: z.object({
+                trialDuration: z.number(),
+                trialEndDate: z.string(),
+            }),
+            [EmailType.FREE_TRIAL_EXPIRES_SOON]: z.object({
+                trialDuration: z.number(),
+                discountCode: z.string(),
+            }),
+            [EmailType.REFERRAL_INVITE]: z.object({
+                nameOfReferrer: z.string(),
+                referralCode: z.string(),
+            }),
+            ...
+        };
+        ```
+    </Step>
+    <Step title="Updating the emailConfig">
+    Then, we also need to import our new email inside our `send-email` route under the  `emailConfig` object.
+
+    <Note>
+        FYI: The `emailConfig` needs to reside inside the API route itself and can't be outsourced into its own `email.confi.ts` file because this would throw an error when building the app as the environments are different.
+    </Note>
+
+    ```typescript
+    const emailConfig: EmailConfigType = {
+        [EmailType.FREE_TRIAL_STARTED]: {
+            component: FreeTrialStartedEmail,
+            isEnabled: false,
+        },
+        [EmailType.FREE_TRIAL_EXPIRES_SOON]: {
+            component: FreeTrialExpiresEmail,
+            isEnabled: false,
+        },
+        [EmailType.REFERRAL_INVITE]: {
+            component: ReferralInviteEmail,
+            isEnabled: true,
+        },
+    };
+    ```
     </Step>
 
 </Steps>
