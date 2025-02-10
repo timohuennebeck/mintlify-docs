@@ -1,0 +1,79 @@
+---
+title: "Environment Configuration"
+description: "Learn how to configure and validate environment variables for development and production environments."
+---
+
+This boilerplate comes with `.env` validation out of the box to prevent accidental use of development values like `localhost:3000` in production environments.
+
+### How it works
+
+The `app/lib/env.ts` file contains validation logic that uses `@t3-oss` and `zod` to validate environment variables at runtime.
+
+To see this in action, try removing any environment variable from your `.env.local` file. The application will throw an error indicating the missing variable.
+
+```typescript
+import { createEnv } from "@t3-oss/env-nextjs";
+import { z } from "zod";
+
+export const env = createEnv({
+    server: {
+        DEFAULT_SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
+        STRIPE_SECRET_KEY: z
+            .string()
+            .min(1)
+            .refine(
+                (str) =>
+                    process.env.NODE_ENV === "production" ? !str.startsWith("sk_test_") : true,
+                { message: "STRIPE_SECRET_KEY must not start with 'sk_test'" }
+            ),
+        STRIPE_WEBHOOK_SECRET: z
+            .string()
+            .min(1)
+            .refine((str) => str.startsWith("whsec_"), {
+                message: "STRIPE_WEBHOOK_SECRET must start with 'whsec_'",
+            }),
+        RESEND_API_KEY: z
+            .string()
+            .min(1)
+            .refine((str) => str.startsWith("re_"), {
+                message: "RESEND_API_KEY must start with 're_'",
+            }),
+    },
+
+    client: {
+        NEXT_PUBLIC_SITE_URL: z
+            .string()
+            .url()
+            .refine(
+                (str) =>
+                    process.env.NODE_ENV === "production" ? !str.includes("localhost") : true,
+                { message: "NEXT_PUBLIC_SITE_URL must not include 'localhost'" }
+            ),
+        NEXT_PUBLIC_SUPABASE_URL: z
+            .string()
+            .url()
+            .refine((str) => str.includes("supabase"), {
+                message: "NEXT_PUBLIC_SUPABASE_URL must include 'supabase'",
+            }),
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
+        NEXT_PUBLIC_BUILD_VERSION: z.string().min(1),
+    },
+
+    experimental__runtimeEnv: {
+        NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+        NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+        NEXT_PUBLIC_BUILD_VERSION: process.env.NEXT_PUBLIC_BUILD_VERSION,
+    },
+});
+```
+
+Furthermore, the `next.config.mjs` file includes validation code that checks these environment variables during the build process. This ensures that all required variables are present and correctly formatted before the application can be built.
+
+```typescript
+import { fileURLToPath } from "node:url";
+import createJiti from "jiti";
+const jiti = createJiti(fileURLToPath(import.meta.url));
+
+jiti("./src/utils/env.ts");
+```

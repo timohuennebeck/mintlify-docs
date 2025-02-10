@@ -60,7 +60,8 @@
                 "configuration/edge-functions",
                 "configuration/user-referrals",
                 "configuration/data-files",
-                "configuration/blog-posts"
+                "configuration/blog-posts",
+                "configuration/environment-configuration"
             ]
         },
         {
