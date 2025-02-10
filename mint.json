@@ -61,7 +61,8 @@
                 "configuration/user-referrals",
                 "configuration/data-files",
                 "configuration/blog-posts",
-                "configuration/environment-configuration"
+                "configuration/environment-configuration",
+                "configuration/ci-and-cd"
             ]
         },
         {

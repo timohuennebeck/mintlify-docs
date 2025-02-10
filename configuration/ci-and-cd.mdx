@@ -1,0 +1,52 @@
+---
+title: "CI/CD Pipeline"
+description: "Learn how to set up and use the Continuous Integration and Continuous Deployment pipeline for preview and production environments."
+---
+
+This boilerplate uses a manual approach for the CI/CD pipelines and requires us to merge our changes to the main branch to avoid accidential changes in our production environment.
+
+However, it's also possible to automate all of that using Vercel's build in CI/CD pipeline or using GitHub actions.
+
+### Pre-Requisites
+
+Before getting started, please disable `Branch Tracking` for the `Preview` environment in the Vercel dashboard so that we can avoid automatic deployments.
+
+Please also make sure to assign the appropiate domains to the `Preview (preview.example.com)` and `Production (example.com)` environments.
+
+<Steps>
+    <Step title="Push Code to preview">
+        ```bash
+        git checkout -b preview
+        git add .
+        git commit -m "last commit"
+        git push origin preview
+        ```
+    </Step>
+
+    <Step title="Preview Build">
+        In order to preview the changes, we need to build the preview environment using the following command:
+
+        ```bash
+        vercel --name preview
+        ```
+
+        This will trigger a preview build and our preview URL will be assigned to the preview environment (e.g., `preview.example.com`) - which we have defined earlier.
+    </Step>
+
+    <Step title="Production Build">
+        If the preview environment is working as expected, we can merge the changes to the main branch and run the following command to build the production environment:
+
+        ```bash
+        vercel --prod
+        ```
+
+        This will trigger a production build and our production URL will be assigned to the production environment (e.g., `example.com`) - which we have defined earlier.
+    </Step>
+
+</Steps>
+
+### Environment Variables
+
+Ensure all required environment variables are configured in both preview and production environments.
+
+The `.env` variables should be the same so that we can test the whole project in the preview environment before switching to production.
